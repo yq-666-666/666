@@ -1,0 +1,100 @@
+class PhoneBook:
+
+    def __init__(self):
+        self.contacts = {}
+        print("一个新的电话簿已创建。")
+
+    def add_contact(self, name, phone_number):
+        if name in self.contacts:
+            return f"联系人'{name}'已存在，电话号码将被更新。"
+        
+        self.contacts[name] = phone_number
+        return f"联系人 '{name}' 已成功添加。"
+
+    def search_contact(self, name):
+        phone_number = self.contacts.get(name)
+        if phone_number:
+            return f"找到联系人: {name}：{phone_number}"
+        else:
+            return f"未找到联系人: {name}"
+
+    def delete_contact(self, name):
+        if name in self.contacts:
+            del self.contacts[name]
+            return f"联系人 '{name}' 已被删除。"
+        else:
+            return f"无法删除：联系人 '{name}' 不存在。"
+
+    def display_all(self):
+        if not self.contacts:
+            return "电话簿为空。"
+        
+        result = "\n" + "="*25 + " 电话簿列表 " + "="*25 + "\n"
+        for name, phone_number in self.contacts.items():
+            result += f"  {name:<20} | {phone_number}\n"
+        result += "="*61
+        return result
+
+    def update_contact(self, name, new_phone_number):
+        if name in self.contacts:
+            old_number = self.contacts[name]
+            self.contacts[name] = new_phone_number
+            return f"联系人 '{name}' 的号码已从 {old_number} 更新为 {new_phone_number}。"
+        else:
+            return f"无法更新：联系人 '{name}' 不存在。"
+
+    def __str__(self):
+        return f"电话簿中共有 {len(self.contacts)} 个联系人。"
+
+# --- 主程序：用户交互部分 ---
+
+def menu():
+    my_phone_book = PhoneBook()
+    
+    while True:
+        # 显示菜单
+        print("\n" + "#"*40)
+        print("           电话簿管理系统")
+        print("#"*40)
+        print("1. 添加联系人")
+        print("2. 查询联系人")
+        print("3. 删除联系人")
+        print("4. 显示所有联系人")
+        print("5. 更新联系人号码")
+        print("6. 退出系统")
+        print("#"*40)
+        
+        # 获取用户输入
+        choice = input("请输入您的选择 (1-6): ")
+
+        # 根据用户选择执行操作
+        if choice == '1':
+            name = input("请输入联系人姓名: ")
+            phone = input("请输入联系人电话号码: ")
+            print(my_phone_book.add_contact(name, phone))
+
+        elif choice == '2':
+            name = input("请输入要查询的联系人姓名: ")
+            print(my_phone_book.search_contact(name))
+
+        elif choice == '3':
+            name = input("请输入要删除的联系人姓名: ")
+            print(my_phone_book.delete_contact(name))
+
+        elif choice == '4':
+            print(my_phone_book.display_all())
+
+        elif choice == '5':
+            name = input("请输入要更新的联系人姓名: ")
+            new_phone = input("请输入新的电话号码: ")
+            print(my_phone_book.update_contact(name, new_phone))
+
+        elif choice == '6':
+            print("感谢使用，再见！")
+            break
+
+        else:
+            print("输入无效，请输入数字 1 到 6 之间的选项。")
+
+if __name__ == "__main__":
+    menu()
