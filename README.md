@@ -1,6 +1,3 @@
-#include <stdio.h>
-int main(){
-  printf("helloworld");
-  return 0;
-}
+一个简易的电话簿
+
 
