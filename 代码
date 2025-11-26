@@ -46,7 +46,7 @@ class PhoneBook:
     def __str__(self):
         return f"电话簿中共有 {len(self.contacts)} 个联系人。"
 
-# --- 主程序：用户交互部分 ---
+# --- 主程序 ---
 
 def menu():
     my_phone_book = PhoneBook()
